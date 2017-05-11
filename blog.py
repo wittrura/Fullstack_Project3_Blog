@@ -25,6 +25,7 @@ class Handler(webapp2.RequestHandler):
 
     def render_str(self, template, **params):
         t = jinja_env.get_template(template)
+        params['user'] = self.user
         return t.render(params)
 
     def render(self, template, **kw):
