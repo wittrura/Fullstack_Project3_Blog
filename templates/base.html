@@ -8,7 +8,8 @@
   <a href="/" class="main-title">CS 253 Blog</a>
   <div class="login-area">
     {% if user %}
-      {{user.name}} (<a class="login-link" href="/logout">logout</a>)
+      {{user.name}}
+      (<a class="login-link" href="/logout">logout</a>)
     {% else %}
       <a class="login-link" href="/login">login</a>
       |

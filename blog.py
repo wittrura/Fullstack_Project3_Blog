@@ -174,7 +174,10 @@ class MainPage(Handler):
 
 class NewPost(Handler):
     def get(self):
-        self.render('form.html')
+        if self.user:
+            self.render('form.html')
+        else:
+            self.redirect('/login')
 
     def post(self):
         subject = self.request.get('subject')
@@ -231,7 +234,6 @@ class Login(Handler):
         if u:
             self.login(u)
             self.redirect('/welcome')
-            # self.redirect('/')
         else:
             msg = 'Invalid login'
             self.render('login.html', error = msg)

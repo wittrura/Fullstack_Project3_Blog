@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+<div>
+  {% if user %}
+    <a href="/newpost">+ NEW POST</a>
+  {% endif %}
+</div>
 
   {% for p in posts %}
     {{ p.render() | safe }}
