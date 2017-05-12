@@ -163,7 +163,6 @@ class Post(ndb.Model):
     content = ndb.TextProperty(required = True)
     created = ndb.DateTimeProperty(auto_now_add = True)
     last_modified = ndb.DateTimeProperty(auto_now_add = True)
-    # author = ndb.StringProperty(required = True)
     author = ndb.KeyProperty(kind=User)
 
     def render(self):
@@ -187,8 +186,11 @@ class NewPost(Handler):
         subject = self.request.get('subject')
         content = self.request.get('content')
 
+        uid = self.read_secure_cookie('user_id')
+        user_key = ndb.Key(User, int(uid))
+
         if subject and content:
-            p = Post(parent = blog_key(), subject = subject, content = content)
+            p = Post(parent = blog_key(), subject = subject, content = content, author = user_key)
             p_key = p.put()
             self.redirect('/%s' % str(p_key.integer_id()))
         else:
