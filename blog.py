@@ -131,15 +131,7 @@ def valid_email(email):
 def blog_key(name = 'default'):
     return ndb.Key('blogs', name)
 
-class Post(ndb.Model):
-    subject = ndb.StringProperty(required = True)
-    content = ndb.TextProperty(required = True)
-    created = ndb.DateTimeProperty(auto_now_add = True)
-    last_modified = ndb.DateTimeProperty(auto_now_add = True)
 
-    def render(self):
-        self._render_text = self.content.replace('\n', '<br>')
-        return render_str("post.html", p = self)
 
 class User(ndb.Model):
     name = ndb.StringProperty(required = True)
@@ -165,6 +157,18 @@ class User(ndb.Model):
         u = cls.by_name(name)
         if u and valid_pw(name, pw, u.pw_hash):
             return u
+
+class Post(ndb.Model):
+    subject = ndb.StringProperty(required = True)
+    content = ndb.TextProperty(required = True)
+    created = ndb.DateTimeProperty(auto_now_add = True)
+    last_modified = ndb.DateTimeProperty(auto_now_add = True)
+    # author = ndb.StringProperty(required = True)
+    author = ndb.KeyProperty(kind=User)
+
+    def render(self):
+        self._render_text = self.content.replace('\n', '<br>')
+        return render_str("post.html", p = self)
 
 ##### page handlers #####
 class MainPage(Handler):
