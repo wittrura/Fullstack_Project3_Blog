@@ -167,7 +167,11 @@ class Post(ndb.Model):
 
     def render(self):
         self._render_text = self.content.replace('\n', '<br>')
-        return render_str("post.html", p = self)
+
+        post_id = self.key.id()
+        author = self.author.get()
+
+        return render_str("post.html", p = self, post_id = post_id, author = author)
 
 ##### page handlers #####
 class MainPage(Handler):

@@ -2,10 +2,16 @@
 <div class="post">
   <div class="post-heading">
     <div class="post-title">
-      <!-- TODO - add an anchor tag to link to blog post via ID -->
       {{p.subject}}
-      <p>submitted by author</p>
-      <!-- <p>submitted by {{author}}</p> -->
+
+      <!-- TODO - update static author to use user.name -->
+      <p>submitted by {{p.author}}</p>
+      <!-- <p>submitted by {{p.author.name}}</p> -->
+      <!-- <p>submitted by {{post_author}}</p> -->
+
+      <!-- TODO - update post_id to be a link to permalink -->
+      <p>{{post_id}}</p>
+
     </div>
 
     <div class="post-date">
